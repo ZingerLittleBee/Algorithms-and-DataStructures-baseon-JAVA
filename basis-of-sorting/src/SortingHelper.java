@@ -38,6 +38,7 @@ public class SortingHelper {
                 throw new RuntimeException(sortName + " failed");
             }
             System.out.printf("%s, n = %d : %f s", sortName, arr.length, BigDecimal.valueOf(time));
+            System.out.println(" ");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
