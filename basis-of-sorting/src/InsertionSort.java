@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * @Author: ye
  * @Date: 2020-12-21 23:51
@@ -21,6 +23,17 @@ public class InsertionSort {
         }
     }
 
+    public static <E extends Comparable<E>> void sort2(E[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            E e = arr[i];
+            int j;
+            for (j = i; j - 1 >= 0 && e.compareTo(arr[j - 1]) < 0; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[j] = e;
+        }
+    }
+
     private static <E> void swap(E[] arr, int i, int j) {
         E temp = arr[i];
         arr[i] = arr[j];
@@ -30,8 +43,20 @@ public class InsertionSort {
     public static void main(String[] args) {
         int[] dataSize = {10000, 100000};
         for (int n : dataSize) {
+            System.out.println("Random Array");
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
+            Integer[] arr2 = Arrays.copyOf(arr, arr.length);
             SortingHelper.sortTest("InsertionSort", arr);
+            SortingHelper.sortTest("SelectionSort", arr2);
+
+            System.out.println();
+
+            System.out.println("Ordered Array");
+            arr = ArrayGenerator.generateOrderedArray(n);
+            SortingHelper.sortTest("InsertionSort", arr);
+            SortingHelper.sortTest("SelectionSort", arr2);
+
+            System.out.println();
         }
     }
 }
