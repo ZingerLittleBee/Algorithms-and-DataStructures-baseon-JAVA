@@ -1,4 +1,3 @@
-
 /**
  * @Author: ye
  * @Date: 2020-12-29 23:51
@@ -47,12 +46,13 @@ public class Array<E> {
 
     // 向数组的索引位置添加元素
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("AddLast failed. Array is fulled");
-        }
 
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("AddLast failed. Required index >= 0 and index < size");
+        }
+
+        if (size == data.length) {
+            resize(2 * data.length);
         }
 
         for (int i = size - 1; i >= index ; i--) {
@@ -108,6 +108,10 @@ public class Array<E> {
             data[i - 1] = data[i];
         }
         size--;
+
+        if (size == data.length / 2) {
+            resize(data.length / 2);
+        }
         return ret;
     }
 
@@ -129,6 +133,14 @@ public class Array<E> {
         }
     }
 
+    public void resize(int newCapacity) {
+        E[] newArray = (E[])new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = data[i];
+        }
+        data = newArray;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -145,20 +157,20 @@ public class Array<E> {
     }
 
     public static void main(String[] args) {
-//        Array<Integer> array = new Array<>(20);
-//        for (int i = 0; i < 10; i++) {
-//            array.addLast(i);
-//        }
-//        System.out.println(array);
-//
-//        array.addFirst(10);
-//        System.out.println(array);
+        Array<Integer> array = new Array<>(20);
+        for (int i = 0; i < 10; i++) {
+            array.addLast(i);
+        }
+        System.out.println(array);
+
+        array.addFirst(10);
+        System.out.println(array);
 //
 //        array.add(3, 99);
 //        System.out.println(array);
-//
-//        array.removeFirst();
-//        System.out.println(array);
+
+        array.removeFirst();
+        System.out.println(array);
 //
 //        array.removeLast();
 //        System.out.println(array);
@@ -169,18 +181,18 @@ public class Array<E> {
 //        array.remove(1);
 //        System.out.println(array);
 
-        Array<Student> studentArray = new Array<>();
-        studentArray.addLast(new Student("tom", 88));
-        studentArray.addLast(new Student("aimi", 98));
-        studentArray.addLast(new Student("jock", 70));
-        System.out.println(studentArray);
-
-        studentArray.addFirst(new Student("jack", 99));
-        System.out.println(studentArray);
-
-        studentArray.remove(1);
-        System.out.println(studentArray);
-
-        System.out.println(studentArray.find(new Student("aimi", 98)));
+//        Array<Student> studentArray = new Array<>();
+//        studentArray.addLast(new Student("tom", 88));
+//        studentArray.addLast(new Student("aimi", 98));
+//        studentArray.addLast(new Student("jock", 70));
+//        System.out.println(studentArray);
+//
+//        studentArray.addFirst(new Student("jack", 99));
+//        System.out.println(studentArray);
+//
+//        studentArray.remove(1);
+//        System.out.println(studentArray);
+//
+//        System.out.println(studentArray.find(new Student("aimi", 98)));
     }
 }
